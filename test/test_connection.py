@@ -1,3 +1,4 @@
+import pytest
 import numpy as np
 
 from snn.network import Connection
@@ -7,6 +8,12 @@ from snn.network import Layer
 class TestConnection:
     def setup_method(self):
         pass
+
+    def test_invalid_source_target(self):
+        source = {}
+        target = {}
+        with pytest.raises(AssertionError):
+            connection = Connection(source, target)
 
     def test_weight_clip(self):
         # missing test for no weights, but weight_min, weight_max
