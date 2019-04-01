@@ -14,7 +14,9 @@ class TestNetwork:
 
     def test_add_connection(self):
         network = Network()
-        connection = Connection()
+        source = Layer()
+        target = Layer()
+        connection = Connection(source, target)
         network.add_connection(connection, "source", "target")
 
         assert network.connections[("source", "target")] == connection

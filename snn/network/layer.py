@@ -1,2 +1,3 @@
 class Layer:
-    pass
+    def __init__(self):
+        self.neuron_count = 1
