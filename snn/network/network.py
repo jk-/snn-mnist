@@ -1,6 +1,3 @@
-from typing import Dict
-
-
 class Network:
     def __init__(self, dt: float = 1.0) -> None:
         self.dt = {}
