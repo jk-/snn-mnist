@@ -23,9 +23,9 @@ class Network:
         layer.dt = self.dt
 
     def add_connection(
-        self, conneciton: AbstractConnection, source: str, target: str
+        self, connection: AbstractConnection, source: str, target: str
     ) -> None:
-        self.connections[(source, target)] = connect
+        self.connections[(source, target)] = connection
         connection.network = self
         connection.dt = self.dt
 
