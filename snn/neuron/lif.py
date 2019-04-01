@@ -20,13 +20,12 @@ class LIFNeuron(object):
 
         self.reset()
 
+    def convert_pixel(self, pixel):
+        return 2700 + (pixel * 101.2)
+
     def set_current(self, pixel):
-        lp = 101.2  # scaling factor
-        # maximum constant amplitude current that doesn't trigger a spike
-        l0 = 2700
-        # i(k) = l0 + (k * lp)
         self.I = np.zeros(len(self.time))
-        self.I[0:101] = l0 + (pixel * lp)
+        self.I[0:101] = self.convert_pixel(pixel)
 
     def set_current_history(self, history):
         self.I = history
@@ -66,6 +65,6 @@ class LIFNeuron(object):
         self.spike_count = self.spikes.sum()
 
     def __str__(self):
-        return f"{self.label} ({self.idx})"
+        return f"{self.idx} {self.spike_count}"
 
     __repr__ = __str__

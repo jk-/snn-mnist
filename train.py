@@ -21,18 +21,18 @@ if __name__ == "__main__":
     magic, size, rows, cols = mnist.image_meta
 
     str_kernels = [
-        "0 3800 0 0 3800 0 0 3800 0",
-        "0 0 0 3800 3800 3800 0 0 0",
-        "3800 0 0 0 3800 0 0 0 3800",
-        "0 0 3800 0 3800 0 3800 0 0",
-        "0 3800 0 0 3800 3800 0 0 0",
-        "0 0 0 3800 3800 0 0 3800 0",
-        "0 3800 0 3800 3800 0 0 0 0",
-        "0 0 0 0 3800 3800 0 3800 0",
-        "3800 0 3800 0 3800 0 0 0 0",
-        "3800 0 0 0 3800 0 3800 0 0",
-        "0 0 0 0 3800 0 3800 0 3800",
-        "0 0 3800 0 3800 0 0 0 3800",
+        "0 1 0 0 1 0 0 1 0",
+        # "-9785 -9785 -9785 3851 3851 3851 -9785 -9785 -9785",
+        # "3851 -9785 -9785 -9785 3851 -9785 -9785 -9785 3851",
+        # "-9785 -9785 3851 -9785 3851 -9785 3851 -9785 -9785",
+        # "-9785 3851 -9785 -9785 3851 3851 -9785 -9785 -9785",
+        # "-9785 -9785 -9785 3851 3851 -9785 -9785 3851 -9785",
+        # "-9785 3851 -9785 3851 3851 -9785 -9785 -9785 -9785",
+        # "-9785 -9785 -9785 -9785 3851 3851 -9785 3851 -9785",
+        # "3851 -9785 3851 -9785 3851 -9785 -9785 -9785 -9785",
+        # "3851 -9785 -9785 -9785 3851 -9785 3851 -9785 -9785",
+        # "-9785 -9785 -9785 -9785 3851 -9785 3851 -9785 3851",
+        # "-9785 -9785 3851 -9785 3851 -9785 -9785 -9785 3851",
     ]
 
     kernels = []
@@ -67,22 +67,47 @@ if __name__ == "__main__":
     # l2 = [LIFNeuron(x, T, dt) for x in range(0, layer_2_size)]  # 8112
     l2 = []
 
-    image_at = 7
+    image_at = 11
     image = images[
         (image_at - 1) * rows * cols : ((image_at - 1) + 1) * rows * cols
     ]
+    print("SCANNING IMAGE {}".format(labels[image_at - 1]))
 
     # plt.imshow(np.array(image).reshape(w, h), interpolation="nearest")
     # plt.title("MNIST Digit {}".format(labels[image_at - 1]), fontsize=12)
     # plt.savefig("plots/input_image")
+
+    lif = LIFNeuron(1, 100, 1)
+    lif.set_current(25)
+    lif.spike_train()
+
+    signal = lif.spikes
+    window = [
+        math.exp(-(x / 5)) - math.exp(-(x / 1.25)) for x in range(0, T + 1)
+    ]
+    filtered = np.convolve(signal, window)[0:100]
+
+    # fig, (ax_orig, ax_win, ax_filt) = plt.subplots(3, 1, sharex=True)
+    # ax_orig.plot(signal)
+    # ax_orig.set_title("Original pulse")
+    # ax_orig.margins(0, 0.1)
+    # ax_win.plot(window)
+    # ax_win.set_title("Filter impulse response")
+    # ax_win.margins(0, 0.1)
+    # ax_filt.plot(filtered)
+    # ax_filt.set_title("Filtered signal")
+    # ax_filt.margins(0, 0.1)
+    # fig.tight_layout()
+    # plt.show()
+    # quit()
 
     for idx, value in enumerate(image):
         l1[idx].set_current(value)
         l1[idx].spike_train()
 
     l1_reshape = np.array(l1).reshape(w, h)
-
-    feature_map_idx = 0
+    # print(l1_reshape)
+    # quit()
     cur_n = 0
     window = [
         math.exp(-(x / 5)) - math.exp(-(x / 1.25)) for x in range(0, T + 1)
@@ -113,7 +138,7 @@ if __name__ == "__main__":
                     signal = neuron.spikes
                     I = (
                         kernel_flat[idx]
-                        * np.convolve(signal, window, "same")[0 : len(signal)]
+                        * np.convolve(signal, window)[0 : len(signal)]
                     )
                     n = LIFNeuron("L2 LIF: {}".format(cur_n), T, dt)
                     n.set_current_history(I)
@@ -147,5 +172,5 @@ if __name__ == "__main__":
         plt.title("Feature Map {}".format(f_map_idx + 1), fontsize=12)
         plt.tight_layout()
     fig.tight_layout()
-    plt.savefig("plots/feature_map")
+    # plt.savefig("plots/feature_map")
     plt.show()
