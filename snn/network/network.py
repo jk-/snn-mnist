@@ -1,9 +1,5 @@
-class Layer:
-    pass
-
-
-class AbstractConnection:
-    pass
+from snn.network import AbstractConnection
+from snn.network.layer import Layer
 
 
 class AbstractProbe:
