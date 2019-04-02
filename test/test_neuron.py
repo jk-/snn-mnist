@@ -10,3 +10,5 @@ class TestIFNeuron:
         n.reset()
         assert all(v_before_reset.flatten() == v_rest)
         assert all(n.v.flatten() == v_rest)
+        assert all(spikes_before_reset.flatten() == 0)
+        assert all(n.spikes.flatten() == 0)
