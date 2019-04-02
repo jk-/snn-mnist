@@ -5,6 +5,7 @@ from abc import ABC, abstractmethod
 
 class AbstractLayer(ABC):
     def __init__(self, shape: Tuple[int, int]) -> NoReturn:
+        super().__init__()
         self.shape = shape
         self.network = None
         self.dt = None

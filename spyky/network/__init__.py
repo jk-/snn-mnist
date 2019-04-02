@@ -1,15 +1,19 @@
-from spyky.network.probe import AbstractProbe, Probe
-from spyky.network.layer import AbstractLayer, NeuronLayer
-from spyky.network.connection import AbstractConnection, Connection
+from spyky.network.layer import AbstractLayer
+from spyky.network.connection import AbstractConnection
+from spyky.network.probe import AbstractProbe
+
+from spyky.network.layer import NeuronLayer
+from spyky.network.connection import Connection
+from spyky.network.probe import Probe
 from spyky.network.network import Network
 
 
 __all__ = [
     "AbstractProbe",
-    "Probe",
     "AbstractLayer",
-    "NeuronLayer",
     "AbstractConnection",
+    "NeuronLayer",
     "Connection",
+    "Probe",
     "Network",
 ]

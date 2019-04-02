@@ -16,6 +16,7 @@ class AbstractConnection(ABC):
             target, AbstractLayer
         ), "Target is not of type AbstractLayer"
 
+        super().__init__()
         self.source = source
         self.target = target
         self.weights = None
