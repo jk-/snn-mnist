@@ -1,4 +1,4 @@
-from snn.util.convert import (
+from spyky.util.convert import (
     to_kernel,
     mv_to_volts,
     pa_to_amperes,

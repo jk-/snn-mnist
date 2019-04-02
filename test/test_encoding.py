@@ -1,6 +1,6 @@
 import numpy as np
 
-from snn.encoding import kulkarni_rajendran
+from spyky.encoding import kulkarni_rajendran
 
 
 def test_kulkarni_rajendran():

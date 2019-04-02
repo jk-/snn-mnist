@@ -1,3 +1,3 @@
-from snn.neuron.ifneuron import IFNeuron
+from spyky.neuron.ifneuron import IFNeuron
 
 __all__ = ["IFNeuron"]

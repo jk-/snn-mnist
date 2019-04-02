@@ -1,8 +1,8 @@
 import pytest
 import numpy as np
 
-from snn.network import Connection
-from snn.network.layer import NeuronLayer
+from spyky.network import Connection
+from spyky.network.layer import NeuronLayer
 
 
 class TestConnection:

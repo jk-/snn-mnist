@@ -1,7 +1,7 @@
 import numpy as np
 
 from typing import Tuple, NoReturn
-from snn.network import NeuronLayer
+from spyky.network import NeuronLayer
 
 
 class IFNeuron(NeuronLayer):

@@ -1,5 +1,5 @@
 import numpy as np
-from snn.neuron import IFNeuron
+from spyky.neuron import IFNeuron
 
 
 class TestIFNeuron:

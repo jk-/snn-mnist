@@ -1,6 +1,6 @@
-from snn.network.connection import AbstractConnection, Connection
-from snn.network.network import Network
-from snn.network.layer import AbstractLayer, NeuronLayer
+from spyky.network.connection import AbstractConnection, Connection
+from spyky.network.network import Network
+from spyky.network.layer import AbstractLayer, NeuronLayer
 
 __all__ = [
     "Network",

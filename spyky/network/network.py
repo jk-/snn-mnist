@@ -1,7 +1,7 @@
 import numpy as np
 from typing import Dict, NoReturn
-from snn.network import AbstractConnection
-from snn.network.layer import AbstractLayer
+from spyky.network import AbstractConnection
+from spyky.network.layer import AbstractLayer
 
 
 class AbstractProbe:

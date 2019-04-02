@@ -1,6 +1,6 @@
-from snn.network import Network
-from snn.network import Connection
-from snn.network.layer import NeuronLayer
+from spyky.network import Network
+from spyky.network import Connection
+from spyky.network.layer import NeuronLayer
 
 
 class TestNetwork:

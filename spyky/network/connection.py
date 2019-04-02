@@ -2,7 +2,7 @@ import numpy as np
 
 from abc import ABC, abstractmethod
 from typing import NoReturn
-from snn.network.layer import AbstractLayer
+from spyky.network.layer import AbstractLayer
 
 
 class AbstractConnection(ABC):
