@@ -10,10 +10,10 @@ class AbstractConnection(ABC):
     ) -> None:
         assert isinstance(
             source, AbstractLayer
-        ), "Source is not of type snn.Layer"
+        ), "Source is not of type AbstractLayer"
         assert isinstance(
             target, AbstractLayer
-        ), "Target is not of type snn.Layer"
+        ), "Target is not of type AbstractLayer"
 
         self.source = source
         self.target = target
