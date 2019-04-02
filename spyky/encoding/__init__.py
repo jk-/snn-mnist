@@ -3,8 +3,7 @@ import numpy as np
 
 def kulkarni_rajendran(inpts: np.array) -> np.array:
     """
-        Based on Kulkarnia and Rajendran encoding from:
-        ElsevierNN_published_paper.pdf
+        Based on Kulkarnia and Rajendran encoding
     """
 
     def _encode(x):

@@ -4,7 +4,6 @@ from abc import ABC, abstractmethod
 
 
 class AbstractLayer(ABC):
-    @abstractmethod
     def __init__(self, shape: Tuple[int, int]) -> NoReturn:
         self.shape = shape
         self.network = None
