@@ -28,7 +28,7 @@ class AbstractConnection(ABC):
         pass
 
     @abstractmethod
-    def update(self) -> NoReturn:
+    def update(self, **kwargs) -> NoReturn:
         pass
 
     @abstractmethod
@@ -68,8 +68,8 @@ class Connection(AbstractConnection):
         weights_calc = spikes.astype(float) @ self.weights + self.bias
         return weights_calc
 
-    def update(self) -> NoReturn:
-        pass
+    def update(self, **kwargs) -> NoReturn:
+        super().update(**kwargs)
 
     def reset(self) -> NoReturn:
-        pass
+        super().reset()
