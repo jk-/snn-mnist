@@ -1,5 +1,5 @@
 import numpy as np
-from typing import Dict
+from typing import Dict, NoReturn
 from snn.network import AbstractConnection
 from snn.network.layer import AbstractLayer
 
@@ -9,32 +9,32 @@ class AbstractProbe:
 
 
 class Network:
-    def __init__(self, dt: float = 1.0) -> None:
+    def __init__(self, dt: float = 1.0) -> NoReturn:
         self.dt = dt
         self.layers = {}
         self.connections = {}
         self.probes = {}
 
-    def add_layer(self, layer: AbstractLayer, name: str) -> None:
+    def add_layer(self, layer: AbstractLayer, name: str) -> NoReturn:
         self.layers[name] = layer
         layer.network = self
         layer.dt = self.dt
 
     def add_connection(
         self, connection: AbstractConnection, source: str, target: str
-    ) -> None:
+    ) -> NoReturn:
         self.connections[(source, target)] = connection
         connection.network = self
         connection.dt = self.dt
 
-    def add_probe(self, probe: AbstractProbe, name: str) -> None:
+    def add_probe(self, probe: AbstractProbe, name: str) -> NoReturn:
         self.probes[name] = probe
         probe.network = self
         probe.dt = self.dt
 
     def run(
         self, inpts: Dict[str, np.array], time: int = 100, **kwargs
-    ) -> None:
+    ) -> NoReturn:
         clamps = kwargs.get("clamp", {})
         unclamps = kwargs.get("unclamp", {})
         masks = kwargs.get("masks", {})

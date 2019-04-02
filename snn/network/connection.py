@@ -1,13 +1,14 @@
 import numpy as np
 
 from abc import ABC, abstractmethod
+from typing import NoReturn
 from snn.network.layer import AbstractLayer
 
 
 class AbstractConnection(ABC):
     def __init__(
         self, source: AbstractLayer, target: AbstractLayer, **kwargs
-    ) -> None:
+    ) -> NoReturn:
         assert isinstance(
             source, AbstractLayer
         ), "Source is not of type AbstractLayer"
@@ -23,22 +24,22 @@ class AbstractConnection(ABC):
         self.weight_max = kwargs.get("weight_max", np.inf)
 
     @abstractmethod
-    def calculate(self, spikes: np.array) -> None:
+    def calculate(self, spikes: np.array) -> NoReturn:
         pass
 
     @abstractmethod
-    def update(self) -> None:
+    def update(self) -> NoReturn:
         pass
 
     @abstractmethod
-    def reset(self) -> None:
+    def reset(self) -> NoReturn:
         pass
 
 
 class Connection(AbstractConnection):
     def __init__(
         self, source: AbstractLayer, target: AbstractLayer, **kwargs
-    ) -> None:
+    ) -> NoReturn:
         super().__init__(source, target, **kwargs)
 
         self.weights = kwargs.get("weights", None)
@@ -67,8 +68,8 @@ class Connection(AbstractConnection):
         weights_calc = spikes.astype(float) @ self.weights + self.bias
         return weights_calc
 
-    def update(self) -> None:
+    def update(self) -> NoReturn:
         pass
 
-    def reset(self) -> None:
+    def reset(self) -> NoReturn:
         pass
