@@ -6,4 +6,9 @@ def kulkarni_rajendran(spikes: np.array) -> np.array:
         Based on Kulkarnia and Rajendran encoding from:
         ElsevierNN_published_paper.pdf
     """
-    return np.array(list(map(lambda x: 2700 + (x * 101.2), spikes)))
+
+    def _encode(x):
+        return 2700 + (x * 101.2)
+
+    kr = np.vectorize(_encode)
+    return kr(spikes)
