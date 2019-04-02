@@ -10,5 +10,4 @@ def kulkarni_rajendran(spikes: np.array) -> np.array:
     def _encode(x):
         return 2700 + (x * 101.2)
 
-    kr = np.vectorize(_encode)
-    return kr(spikes)
+    return np.vectorize(_encode)(spikes)
