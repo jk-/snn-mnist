@@ -18,7 +18,7 @@ class TestIFNeuron:
         assert all(n.spikes.flatten() == 0)
         assert all(n.refractor_count.flatten() == 0)
 
-    def test_tick_masks(self):
+    def test_tick_with_mask_clipping(self):
         v_rest = -70
         v_thresh = 20
         refractor_period = 3
