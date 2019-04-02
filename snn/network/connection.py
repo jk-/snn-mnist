@@ -1,13 +1,19 @@
 import numpy as np
 
 from abc import ABC, abstractmethod
-from snn.network.layer import Layer
+from snn.network.layer import AbstractLayer
 
 
 class AbstractConnection(ABC):
-    def __init__(self, source: Layer, target: Layer, **kwargs) -> None:
-        assert isinstance(source, Layer), "Source is not of type snn.Layer"
-        assert isinstance(target, Layer), "Target is not of type snn.Layer"
+    def __init__(
+        self, source: AbstractLayer, target: AbstractLayer, **kwargs
+    ) -> None:
+        assert isinstance(
+            source, AbstractLayer
+        ), "Source is not of type snn.Layer"
+        assert isinstance(
+            target, AbstractLayer
+        ), "Target is not of type snn.Layer"
 
         self.source = source
         self.target = target
@@ -30,7 +36,9 @@ class AbstractConnection(ABC):
 
 
 class Connection(AbstractConnection):
-    def __init__(self, source: Layer, target: Layer, **kwargs) -> None:
+    def __init__(
+        self, source: AbstractLayer, target: AbstractLayer, **kwargs
+    ) -> None:
         super().__init__(source, target, **kwargs)
 
         self.weights = kwargs.get("weights", None)

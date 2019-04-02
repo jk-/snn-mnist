@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 
 from snn.network import Connection
-from snn.network import Layer
+from snn.network.layer import NeuronLayer
 
 
 class TestConnection:
@@ -21,7 +21,11 @@ class TestConnection:
         weights = np.array([-0.1, -0.5, 1.2])
 
         connection = Connection(
-            Layer(), Layer(), weights=weights, weight_min=0, weight_max=1
+            NeuronLayer((1, 1)),
+            NeuronLayer((1, 1)),
+            weights=weights,
+            weight_min=0,
+            weight_max=1,
         )
         assert all([a == b for a, b in zip(connection.weights, [0, 0, 1])])
 
@@ -29,7 +33,12 @@ class TestConnection:
         weights = np.array([0, 1, 2])
         bias = np.array([1, 1, 1])
 
-        connection = Connection(Layer(), Layer(), weights=weights, bias=bias)
+        connection = Connection(
+            NeuronLayer((1, 1)),
+            NeuronLayer((1, 1)),
+            weights=weights,
+            bias=bias,
+        )
         spikes = np.array([0, 1, 0])
         weights_calc = connection.calculate(spikes)
 

@@ -1,3 +1,3 @@
-from snn.neuron.lif import LIFNeuron
+from snn.neuron.ifneuron import IFNeuron
 
-__all__ = ["LIFNeuron"]
+__all__ = ["IFNeuron"]
