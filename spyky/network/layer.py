@@ -1,4 +1,6 @@
 import numpy as np
+from operator import mul
+from functools import reduce
 from typing import Tuple, NoReturn
 from abc import ABC, abstractmethod
 
@@ -26,7 +28,9 @@ class NeuronLayer(AbstractLayer):
         self.neuron_count = self.shape[0] * self.shape[1]
 
     def tick(self, v_incoming: np.array) -> NoReturn:
-        pass
+        # print("INCOMING!!!", v_incoming)
+        self.spikes = v_incoming
+        super().tick(v_incoming)
 
     def reset(self) -> NoReturn:
         super().reset()

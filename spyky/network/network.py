@@ -29,13 +29,25 @@ class Network:
         probe.network = self
         probe.dt = self.dt
 
+    def get_inputs(self) -> Dict[str, np.array]:
+        inpts = {}
+
+        for conn in self.connections:
+            source = self.connections[conn].source
+            target = self.connections[conn].target
+
+            if not conn[1] in inpts:
+                inpts[conn[1]] = np.zeros(target.shape)
+
+            # print("conn", conn[1], source.spikes)
+            inpts[conn[1]] += self.connections[conn].calculate(source.spikes)
+            # print("got inputs", inpts)
+
+        return inpts
+
     def run(
         self, inpts: Dict[str, np.array], time: int = 100, **kwargs
     ) -> NoReturn:
-        clamps = kwargs.get("clamp", {})
-        unclamps = kwargs.get("unclamp", {})
-        masks = kwargs.get("masks", {})
-        injects_v = kwargs.get("injects_v", {})
 
         timesteps = int(time / self.dt)
 
@@ -43,38 +55,12 @@ class Network:
 
         for t in range(timesteps):
             for l in self.layers:
-                if isinstance(self.layers[l], AbstractInput):
-                    self.layers[l].forward(x=inpts[l][t])
-                else:
-                    self.layers[l].forward(x=inpts[l])
-
-                clamp = clamps.get(l, None)
-                if clamp is not None:
-                    if clamp.ndimension() == 1:
-                        self.layers[l].s[clamp] = 1
-                    else:
-                        self.layers[l].s[clamp[t]] = 1
-
-                unclamp = unclamps.get(l, None)
-                if unclamp is not None:
-                    if unclamp.ndimension() == 1:
-                        self.layers[l].s[unclamp] = 0
-                    else:
-                        self.layers[l].s[unclamp[t]] = 0
-
-                inject_v = injects_v.get(l, None)
-                if inject_v is not None:
-                    self.layers[l].v += inject_v
+                self.layers[l].tick(v_incoming=inpts[l])
 
             for c in self.connections:
-                self.connections[c].update(
-                    mask=masks.get(c, None), learning=self.learning, **kwargs
-                )
+                self.connections[c].update(**kwargs)
 
             inpts.update(self.get_inputs())
 
-            for m in self.monitors:
-                self.monitors[m].record()
-
-        for c in self.connections:
-            self.connections[c].normalize()
+            for m in self.probes:
+                self.probes[m].save()

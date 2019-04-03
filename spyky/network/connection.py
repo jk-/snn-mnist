@@ -66,8 +66,13 @@ class Connection(AbstractConnection):
                 )
 
     def calculate(self, spikes: np.array) -> np.array:
-        weights_calc = spikes.astype(float) @ self.weights + self.bias
-        return weights_calc
+        # print("shape", spikes.shape)
+        weights_calc = (
+            spikes.astype(float).flatten() @ self.weights + self.bias
+        )
+        # print("calc", weights_calc)
+        # print("reshape", weights_calc.reshape(*self.target.shape))
+        return weights_calc.reshape(*self.target.shape)
 
     def update(self, **kwargs) -> NoReturn:
         super().update(**kwargs)
